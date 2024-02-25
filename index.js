@@ -14,6 +14,30 @@ const FAQ = [
 ];
 
 // add code here if needed
+function processLinks(parentDiv, parentTag, additionalClass = "") {
+    // Find all 'a' tags that are children of the specified parent tags
+    const allAsInsideParent = parentDiv.querySelectorAll(`${parentTag} > a`);
+
+    // Iterate over each found 'a' tag
+    allAsInsideParent.forEach(function (a) {
+        // Add the class "con-button" to the 'a' tag, and any additional class if provided
+        a.classList.add("con-button");
+        if (additionalClass) {
+            a.classList.add(additionalClass);
+        }
+
+        // Get the parent tag
+        const parentTag = a.parentNode;
+
+        // Use insertBefore to move the 'a' tag outside, just before the parent tag
+        parentTag.parentNode.insertBefore(a, parentTag);
+
+        // Delete the parent tag if it's empty now
+        if (!parentTag.hasChildNodes()) {
+            parentTag.parentNode.removeChild(parentTag);
+        }
+    });
+}
 
 function processBackgroundColor(el) {
     // add code here
@@ -39,7 +63,24 @@ function processBackgroundColor(el) {
 function processHero(el) {
     processBackgroundColor(el);
     // add code here
+    processLinks(el, "b");
+    processLinks(el, "i", "blue");
+
+    // Define parent 'div'
+    const parentDiv = el;
+
+    // Find all 'p' tags in the parent 'div'
+    const allPs = parentDiv.querySelectorAll("p");
+
+    // Iterate through each 'p' tag to find one that contains an 'a' tag
+    allPs.forEach(function (p) {
+        if (p.querySelector("a")) {
+            // If a 'p' tag contains an 'a' tag, add the 'action-area' class to the 'p' tag
+            p.classList.add("action-area");
+        }
+    });
 }
+
 function processBrick(el) {
     processBackgroundColor(el);
     // add code here
