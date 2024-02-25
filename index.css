@@ -265,3 +265,42 @@ body {
         flex-direction: row;
     }
 }
+@media screen and (min-width: 426px) and (max-width: 769px) {
+    .brick.double {
+        grid-column: auto;
+    }
+    .brick.triple {
+        grid-column: auto;
+    }
+    .masonry {
+        grid-template-columns: auto;
+    }
+}
+@media screen and (max-width: 426px) {
+    .brick.double {
+        grid-column: auto;
+    }
+    .brick.triple {
+        grid-column: auto;
+    }
+    .con-button {
+        margin-bottom: 25px;
+        margin-left: -25px;
+        width: 100%;
+    }
+    .hero {
+        padding: 40px;
+    }
+    .masonry {
+        grid-template-columns: auto;
+        padding: 30px;
+    }
+    .section:last-child {
+        margin-bottom: 125px;
+    }
+    .banner .con-button {
+        margin-bottom: 0px;
+        margin-left: -32px;
+        width: 75%;
+    }
+}

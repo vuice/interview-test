@@ -14,6 +14,21 @@ const FAQ = [
 ];
 
 // add code here if needed
+function addViewportMeta() {
+    // Create a new meta element
+    const meta = document.createElement("meta");
+
+    // Set the name and content attributes
+    meta.setAttribute("name", "viewport");
+    meta.setAttribute(
+        "content",
+        "width=device-width, initial-scale=1, minimum-scale=1"
+    );
+
+    // Append the meta element to the head
+    document.getElementsByTagName("head")[0].appendChild(meta);
+}
+
 function processLinks(parentDiv, parentTag, additionalClass = "") {
     // Find all 'a' tags that are children of the specified parent tags
     const allAsInsideParent = parentDiv.querySelectorAll(`${parentTag} > a`);
@@ -191,6 +206,7 @@ function processBanner(el) {
     checkHeroVisibility();
 }
 
+addViewportMeta();
 document.querySelectorAll(".hero").forEach(processHero);
 document.querySelectorAll(".brick").forEach(processBrick);
 document.querySelectorAll(".faq").forEach(processFaq);
