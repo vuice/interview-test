@@ -84,7 +84,23 @@ function processHero(el) {
 function processBrick(el) {
     processBackgroundColor(el);
     // add code here
+    // Define parent 'div'
+    const parentDiv = el;
+
+    // Find all 'p' tags in the parent 'div'
+    const allPs = parentDiv.querySelectorAll("p");
+
+    // Ensure there are enough paragraphs to avoid errors
+    if (allPs.length >= 3) {
+        // Add the class "title" to the first paragraph
+        allPs[0].classList.add("title");
+        // Add the class "price" to the second paragraph
+        allPs[1].classList.add("price");
+        // Add the class "description" to the third paragraph
+        allPs[2].classList.add("description");
+    }
 }
+
 function processFaq(el) {
     // improve this code
     el.innerHTML = `
