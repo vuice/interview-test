@@ -2,36 +2,40 @@
     --global-height-nav: 64px;
     --global-height-breadcrumbs: 33px;
     --global-height-navPromo: 65px;
-    --feds-totalheight-nav: calc(var(--feds-height-nav, --global-height-nav) + var(--feds-height-breadcrumbs, --global-height-breadcrumbs));
+    --feds-totalheight-nav: calc(
+        var(--feds-height-nav, --global-height-nav) +
+            var(--feds-height-breadcrumbs, --global-height-breadcrumbs)
+    );
     --link-color: #035fe6;
     --link-hover-color: #136ff6;
-    --link-color-dark: #1473E6;
+    --link-color-dark: #1473e6;
     --link-hover-color-dark: #0d66d0;
     --background-color: #fff;
     --overlay-background-color: #ffffff20;
     --highlight-background-color: #ffffff40;
     --text-color: #2c2c2c;
-    --color-white: #FFF;
-    --color-gray-100: #F8F8F8;
-    --color-gray-200: #E8E8E8;
-    --color-gray-300: #D4D4D4;
-    --color-gray-400: #B6B6B6;
+    --color-white: #fff;
+    --color-gray-100: #f8f8f8;
+    --color-gray-200: #e8e8e8;
+    --color-gray-300: #d4d4d4;
+    --color-gray-400: #b6b6b6;
     --color-gray-500: #909090;
     --color-gray-600: #686868;
     --color-gray-700: #444;
     --color-gray-800: #242424;
     --color-black: #000;
-    --color-brand-title: #000B1D;
+    --color-brand-title: #000b1d;
     --color-accent: var(--link-color-dark);
     --color-accent-hover: var(--link-hover-color-dark);
     --color-accent-down: #095aba;
     --color-accent-focus-ring: #378ef0;
-    --color-info-accent: #5C5CE0;
-    --color-info-accent-hover: #4646C6;
-    --color-info-accent-down: #3D3DB4;
-    --color-info-accent-light: #DEDEF9;
-    --body-font-family: 'Adobe Clean', adobe-clean, 'Trebuchet MS', sans-serif;
-    --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
+    --color-info-accent: #5c5ce0;
+    --color-info-accent-hover: #4646c6;
+    --color-info-accent-down: #3d3db4;
+    --color-info-accent-light: #dedef9;
+    --body-font-family: "Adobe Clean", adobe-clean, "Trebuchet MS", sans-serif;
+    --fixed-font-family: "Roboto Mono", menlo, consolas, "Liberation Mono",
+        monospace;
     --spacing-xxs: 8px;
     --spacing-xs: 16px;
     --spacing-s: 24px;
@@ -88,7 +92,9 @@
     --grid-container-width: 83.4%;
     --grid-column-width: calc(var(--grid-container-width) / 12);
     --grid-margins-width: calc((100vw - var(--grid-container-width)) / 2);
-    --grid-margins-width-10: calc((100vw - (var(--grid-column-width) * 10)) / 2);
+    --grid-margins-width-10: calc(
+        (100vw - (var(--grid-column-width) * 10)) / 2
+    );
     --grid-margins-width-8: calc((100vw - (var(--grid-column-width) * 8)) / 2);
     --grid-margins-width-6: calc((100vw - (var(--grid-column-width) * 6)) / 2);
     --aspect-ratio-square: 1/1;
@@ -156,6 +162,12 @@ body {
 .brick {
     padding: 20px;
 }
+.brick.double {
+    grid-column: span 2;
+}
+.brick.triple {
+    grid-column: span 3;
+}
 .title {
     text-align: center;
     font-size: 20px;
@@ -171,18 +183,21 @@ body {
     line-height: 24px;
     margin: 12px 0;
 }
-
 .masonry {
-    margin: 0 auto;
-    padding: 50px;
+    display: grid;
     gap: var(--spacing-m);
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0 auto;
     max-width: 1000px;
+    padding: 50px;
 }
-
 .faq {
     max-width: 1000px;
     margin: 20px auto;
     border-bottom: 1px solid #ccc;
+}
+.faq .faq-set {
+    cursor: pointer;
 }
 .faq .question {
     border-top: 1px solid #ccc;
@@ -193,28 +208,47 @@ body {
     position: relative;
 }
 .faq .answer {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
     padding: 0 8px;
+    transition: opacity 0.5s, max-height 0.5s; /* Smooth transition for opacity and max-height */
+}
+.faq .answer.open {
+    max-height: 500px; /* Set to a max-height that accommodates content */
+    opacity: 1;
 }
 .faq .question::after {
-    content: '';
-    display: block;
-    box-sizing: border-box;
-    position: absolute;
-    width: 12px;
-    height: 11px;
-    border-top: 2px solid;
     border-right: 2px solid;
-    transform: rotate(225deg);
+    border-top: 2px solid;
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    height: 12px;
+    position: absolute;
     right: 12px;
     top: 36px;
+    transform: rotate(225deg);
+    transition: transform 0.3s ease; /* Add transition for smooth rotation */
+    width: 12px;
+}
+.faq .question.rotated::after {
+    transform: rotate(
+        135deg
+    ); /* Rotate 90 degrees from the original position */
 }
 .faq .answer p {
     margin-top: 0;
 }
 .banner {
     background-color: #eee;
+    bottom: -100%; /* Start off-screen */
     padding: 16px;
+    position: fixed;
     text-align: center;
+    transition: bottom 0.5s ease; /* Smooth transition for the bottom property */
+    width: 100%;
+    z-index: 1000; /* Ensure it's above other content */
 }
 .banner .con-button.blue {
     margin-left: 8px;
@@ -225,10 +259,48 @@ body {
     margin-bottom: 100px;
 }
 
-
 @media screen and (min-width: 600px) {
     .action-area {
         align-items: center;
         flex-direction: row;
+    }
+}
+@media screen and (min-width: 426px) and (max-width: 769px) {
+    .brick.double {
+        grid-column: auto;
+    }
+    .brick.triple {
+        grid-column: auto;
+    }
+    .masonry {
+        grid-template-columns: auto;
+    }
+}
+@media screen and (max-width: 426px) {
+    .brick.double {
+        grid-column: auto;
+    }
+    .brick.triple {
+        grid-column: auto;
+    }
+    .con-button {
+        margin-bottom: 25px;
+        margin-left: -25px;
+        width: 100%;
+    }
+    .hero {
+        padding: 40px;
+    }
+    .masonry {
+        grid-template-columns: auto;
+        padding: 30px;
+    }
+    .section:last-child {
+        margin-bottom: 125px;
+    }
+    .banner .con-button {
+        margin-bottom: 0px;
+        margin-left: -32px;
+        width: 75%;
     }
 }
