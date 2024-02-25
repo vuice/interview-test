@@ -103,45 +103,65 @@ function processBrick(el) {
 
 function processFaq(el) {
     // improve this code
-    el.innerHTML = `
+    // Initialize an empty string to hold the HTML
+    let htmlContent = "";
+
+    // Loop through each FAQ item in the array
+    for (let i = 0; i < FAQ.length; i++) {
+        // Append the FAQ set HTML to the htmlContent string
+        htmlContent += `
         <div class="faq-set">
-            <div class="question">
-                <div>
-                    <h3>${FAQ[0].q}</h3>
-                </div>
+          <div class="question">
+            <div>
+              <h3>${FAQ[i].q}</h3>
             </div>
-            <div class="answer">
-                <div>
-                    <p>${FAQ[0].a}</p>
-                </div>
+          </div>
+          <div class="answer">
+            <div>
+              <p>${FAQ[i].a}</p>
             </div>
-        </div>
-        <div class="faq-set">
-            <div class="question">
-                <div>
-                    <h3>${FAQ[1].q}</h3>
-                </div>
-            </div>
-            <div class="answer">
-                <div>
-                    <p>${FAQ[1].a}</p>
-                </div>
-            </div>
-        </div>
-        <div class="faq-set">
-            <div class="question">
-                <div>
-                    <h3>${FAQ[2].q}</h3>
-                </div>
-            </div>
-            <div class="answer">
-                <div>
-                    <p>${FAQ[2].a}</p>
-                </div>
-            </div>
+          </div>
         </div>`;
+    }
+
+    // Set the innerHTML of the element to the generated HTML content
+    el.innerHTML = htmlContent;
+
     // add code here
+    // Define parent 'div'
+    const parentDiv = el;
+
+    // Add click event listeners to each FAQ set after rendering
+    parentDiv.querySelectorAll(".faq-set").forEach((faqSet) => {
+        faqSet.addEventListener("click", function () {
+            const question = this.querySelector(".question");
+            const answer = this.querySelector(".answer");
+            const isAlreadyOpen = answer.classList.contains("open");
+
+            // Close all open answers and rotate chevrons back
+            parentDiv
+                .querySelectorAll(".faq .answer.open")
+                .forEach((openAnswer) => {
+                    openAnswer.classList.remove("open");
+                    openAnswer.previousElementSibling.classList.remove(
+                        "rotated"
+                    );
+                    openAnswer.style.maxHeight = null;
+                });
+
+            // If the clicked FAQ was not already open, open it and rotate the chevron
+            if (!isAlreadyOpen) {
+                answer.classList.add("open");
+                question.classList.add("rotated"); // Add rotated class to the question
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            } else {
+                // If it was open, we're closing it, so remove the rotated class
+                question.classList.remove("rotated");
+            }
+        });
+    });
 }
+
 function processBanner(el) {
     // add code here
 }
