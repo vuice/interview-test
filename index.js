@@ -164,7 +164,33 @@ function processFaq(el) {
 
 function processBanner(el) {
     // add code here
+    processLinks(el, "b");
+
+    // Find the "banner" div and initially hide it or ensure it's not fixed
+    const bannerDiv = document.querySelector(".banner");
+    // Initially set the banner to be at the bottom of the view
+    bannerDiv.style.bottom = "-100%"; // Ensure it starts off-screen
+
+    // Function to check the visibility of the "hero" div
+    function checkHeroVisibility() {
+        const heroDiv = document.querySelector(".hero");
+        const heroBottom = heroDiv.getBoundingClientRect().bottom;
+
+        if (heroBottom < 0) {
+            // "hero" is completely off the screen
+            bannerDiv.style.bottom = "0"; // Bring it up
+        } else {
+            bannerDiv.style.bottom = "-100%"; // Hide it
+        }
+    }
+
+    // Listen for scroll events to check the "hero" div visibility
+    window.addEventListener("scroll", checkHeroVisibility);
+
+    // Initial check in case the page is loaded with the "hero" div already off the screen
+    checkHeroVisibility();
 }
+
 document.querySelectorAll(".hero").forEach(processHero);
 document.querySelectorAll(".brick").forEach(processBrick);
 document.querySelectorAll(".faq").forEach(processFaq);

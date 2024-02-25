@@ -236,8 +236,13 @@ body {
 }
 .banner {
     background-color: #eee;
+    bottom: -100%; /* Start off-screen */
     padding: 16px;
+    position: fixed;
     text-align: center;
+    transition: bottom 0.5s ease; /* Smooth transition for the bottom property */
+    width: 100%;
+    z-index: 1000; /* Ensure it's above other content */
 }
 .banner .con-button.blue {
     margin-left: 8px;
